@@ -1,11 +1,31 @@
 #!/usr/bin/env python3
 
+"""Play random audio files when a sensor rising edge is detected.
+
+Usage:
+    main.py [options] [--audio-files-dir=DIR] [--gpio-bcm-pin=PIN]
+
+Options:
+    -A DIR, --audio-files-dir=DIR   Directory where the audio files are located
+                                    [default: ./audio-files].
+
+    -h, --help                      Show this help message.
+
+    -P PIN, --gpio-bcm-pin=PIN      The GPIO pin (BCM numbering system) whose rising
+                                    edge is used as a trigger [default: 17].
+
+    -v, --verbose                   Enable verbose output [default: false].
+
+    -V, --version                   Show version.
+"""
+
 import logging
 import os
 import random
 import sys
 from os import path
 
+from docopt import docopt
 import RPi.GPIO as gpio
 from playsound import playsound
 
@@ -47,19 +67,11 @@ def main(audio_files_dir, motion_sensor_pin):
 
 
 if __name__ == "__main__":
+    args = docopt(__doc__, help=True, version="1.0.0")
+
+    logging_level = logging.DEBUG if args["--verbose"] else logging.INFO
     logging.basicConfig(
-        format="[%(levelname)s:%(name)s:%(lineno)d] %(message)s", level=logging.INFO
+        format="[%(levelname)s:%(name)s:%(lineno)d] %(message)s", level=logging_level
     )
 
-    try:
-        audio_files_dir = sys.argv[1]
-    except IndexError:
-        logger.info("Argument for audio files directory not found: using default")
-        audio_files_dir = "./audio-files"
-    try:
-        motion_sensor_pin = int(sys.argv[2])
-    except IndexError:
-        logger.info("Argument for motion sensor pin not found: using default")
-        motion_sensor_pin = 17
-
-    main(audio_files_dir, motion_sensor_pin)
+    main(args["--audio-files-dir"], int(args["--gpio-bcm-pin"]))
