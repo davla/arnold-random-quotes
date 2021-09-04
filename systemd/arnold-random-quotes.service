@@ -1,0 +1,13 @@
+# arnold-random-quotes systemd service unit file
+
+[Unit]
+Description=Play random Arnold Schwarzenegger quotes on GPIO rising edge
+Conflicts=arnold-random-quotes-stop.service
+
+[Service]
+ExecStart=%h/bin/arnold-random-quotes
+StandardError=journal
+StandardOutput=journal
+SyslogLevel=info
+Type=exec
+WorkingDirectory=%h/lib/arnold-random-quotes

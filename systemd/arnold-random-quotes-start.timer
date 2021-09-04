@@ -1,0 +1,12 @@
+# arnold-random-quotes start systemd timer unit file
+
+[Unit]
+Description=Start arnold-random-quotes every day at 18:00
+
+[Install]
+WantedBy=timers.target
+
+[Timer]
+OnCalendar=*-*-* 18:00:00
+Persistent=true
+Unit=arnold-random-quotes.service

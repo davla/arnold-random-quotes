@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# Systemd service wrapper for arnold-random-quotes
+
+. .venv/bin/activate
+python main.py --audio-files-dir ./audio-files --gpio-bcm-pin 17
