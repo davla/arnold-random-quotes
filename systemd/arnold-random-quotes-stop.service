@@ -1,0 +1,5 @@
+# arnold-random-quotes stop systemd timer unit file
+
+[Unit]
+Description=Stop arnold-random-quotes every day at 00:00
+SuccessAction=exit
