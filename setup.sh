@@ -22,6 +22,10 @@ sudo apt install \
     gstreamer1.0-pulseaudio \
     python3-gi
 
+# GPIO dependencies
+sudo apt install \
+    python3-rpi.gpio
+
 ########################################
 # Python virtualenv
 ########################################
